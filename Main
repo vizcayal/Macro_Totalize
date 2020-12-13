@@ -1,19 +1,23 @@
+Sub Suma()
+Dim Cod_Aux As Double
 Dim Cod_Celda As Range, Tipo_Celda As Range, Clase_Celda As Range, Factor_Celda As Range, Inv_Celda As Range
-Dim Res_Celda As Range, Lat_Celda As Range, Lon_Celda As Range
+Dim Res_Celda As Range, Lat_Celda As Range, Lon_Celda As Range, Wood_Type_Celda As Range, Use_Celda As Range
 Dim Hardwood_Other As Single, Hardwood_Pulp As Single, Hardwood_Saw As Single
 Dim Softwood_Other As Single, Softwood_Pulp As Single, Softwood_Saw As Single, Inventario As Single
 
 Set Cod_Celda = Range("B2")
-Set Tipo_Celda = Range("k2")
-Set Clase_Celda = Range("ai2")
+Set Wood_Type_Celda = Range("k2")
+Set Inv_Celda = Range("y2")
+Set Use_Celda = Range("ai2")
 Set Factor_Celda = Range("ah2")
 Set Lat_Celda = Range("c2")
 Set Lon_Celda = Range("d2")
+Set Res_Celda = Range("aK1")
 Set Res_Celda = Range("aK2")
 
 
-While (Cod.Value <> "")
-    Cod_Aux = Cod.Value
+While (Cod_Celda.Value <> "")
+    Cod_Aux = Cod_Celda.Value
     Hardwood_Other = 0
     Hardwood_Pulp = 0
     Hardwood_Saw = 0
@@ -21,42 +25,43 @@ While (Cod.Value <> "")
     Softwood_Pulp = 0
     Softwood_Saw = 0
     
-    While (Cod.Value = Cod_Aux)
-        Inventario = Inv_Celda.Value * Factor_Celda * Value
-        If (clase.Value = "S") Then
-            If (factor.Value = "SAWLOG") Then
+    While (Cod_Celda.Value = Cod_Aux)
+        Inventario = Inv_Celda.Value * Factor_Celda.Value
+        If (Wood_Type_Celda.Value = "S") Then
+            If (Use_Celda.Value = "SAWLOG") Then
                 Softwood_Saw = Softwood_Saw + Inventario
-            ElseIf (clase.Value = "PULPWOOD") Then
+            ElseIf (Use_Celda.Value = "PULPWOOD") Then
                 Softwood_Pulp = Softwood_Pulp + Inventario
-            ElseIf (clase.Value = "OTHER  USES") Then
+            ElseIf (Use_Celda.Value = "OTHER  USES") Then
                 Softwood_Other = Softwood_Other + Inventario
             End If
-        ElseIf (clase.Value = "H") Then
-            If (factor.Value = "SAWLOG") Then
+        ElseIf (Wood_Type_Celda.Value = "H") Then
+            If (Use_Celda.Value = "SAWLOG") Then
                 Hardwood_Saw = Hardwood_Saw + Inventario
-            ElseIf (clase.Value = "PULPWOOD") Then
+            ElseIf (Use_Celda.Value = "PULPWOOD") Then
                 Hardwood_Pulp = Hardwood_Pulp + Inventario
-            ElseIf (clase.Value = "OTHER  USES") Then
+            ElseIf (Use_Celda.Value = "OTHER  USES") Then
                 Hardwood_Other = Hardwood_Other + Inventario
             End If
         End If
         Set Cod_Celda = Cod_Celda.Offset(1, 0)
-        Set Tipo_Celda = Tipo_Celda.Offset(1, 0)
-        Set Clase_Celda = Clase_Celda.Offset(1, 0)
+        Set Wood_Type_Celda = Wood_Type_Celda.Offset(1, 0)
+        Set Inv_Celda = Inv_Celda.Offset(1, 0)
+        Set Use_Celda = Use_Celda.Offset(1, 0)
         Set Factor_Celda = Factor_Celda.Offset(1, 0)
         Set Lat_Celda = Lat_Celda.Offset(1, 0)
         Set Lon_Celda = Lon_Celda.Offset(1, 0)
         
     Wend
-        Set Res_Celda.Value = Cod_Aux
-        Set Res_Celda.Offset(0, 1).Value = Lat_Celda.Value
-        Set Res_Celda.Offset(0, 2).Value = Lon_Celda.Value
-        Set Res_Celda.Offset(0, 3).Value = Hardwood_Saw
-        Set Res_Celda.Offset(0, 4).Value = Hardwood_Pulp
-        Set Res_Celda.Offset(0, 5).Value = Hardwood_Other
-        Set Res_Celda.Offset(0, 6).Value = Softwood_Saw
-        Set Res_Celda.Offset(0, 7).Value = Softwood_Pulp
-        Set Res_Celda.Offset(0, 8).Value = Softwood_Other
+        Res_Celda.Value = Cod_Aux
+        Res_Celda.Offset(0, 1).Value = Lat_Celda.Value
+        Res_Celda.Offset(0, 2).Value = Lon_Celda.Value
+        Res_Celda.Offset(0, 3).Value = Hardwood_Saw
+        Res_Celda.Offset(0, 4).Value = Hardwood_Pulp
+        Res_Celda.Offset(0, 5).Value = Hardwood_Other
+        Res_Celda.Offset(0, 6).Value = Softwood_Saw
+        Res_Celda.Offset(0, 7).Value = Softwood_Pulp
+        Res_Celda.Offset(0, 8).Value = Softwood_Other
 
         Set Res_Celda = Res_Celda.Offset(1, 0)
 
