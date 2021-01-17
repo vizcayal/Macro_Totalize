@@ -4,13 +4,13 @@ Dim Cod_Celda As Range, State_Celda As Range, Owner_Celda As Range, Slope_Celda 
 Dim Res_Celda As Range, Lat_Celda As Range, Lon_Celda As Range, Wood_Type_Celda As Range
 Dim Hardwood_Other As Single, Hardwood_Pulp As Single, Hardwood_Saw As Single
 Dim Softwood_Other As Single, Softwood_Pulp As Single, Softwood_Saw As Single, Inventario_Saw As Single, Inventario_Pulp As Single
-
+Dim State As String, Lat As Single, Log As Single, Owner As Single, Slope As Single
 
 Set Cod_Celda = Range("B2")         'Cod cell
 Set State_Celda = Range("C2")   'Wood Type Cell
 Set Lat_Celda = Range("H2")         'Latitude Cell
 Set Lon_Celda = Range("I2")         'Longitude Cell
-Set Owner_Celda = Range("H2")         'Latitude Cell
+Set Owner_Celda = Range("j2")         'Latitude Cell
 Set Slope_Celda = Range("k2")         'Longitude Cell
 Set Res_Celda = Range("n2")         'Longitude Cell
 
@@ -27,6 +27,12 @@ While (Cod_Celda.Value <> "")
     
     While (Cod_Celda.Value = Cod_Aux)
         
+        State = State_Celda.Value
+        Lat = Lat_Celda
+        Lon = Lon_Celda
+        Owner = Owner_Celda
+        Slope = Slope_Celda
+        
         Set Cod_Celda = Cod_Celda.Offset(1, 0)
         Set State_Celda = State_Celda.Offset(1, 0)
         Set Lat_Celda = Lat_Celda.Offset(1, 0)
@@ -37,18 +43,14 @@ While (Cod_Celda.Value <> "")
         
     Wend
         Res_Celda.Value = Cod_Aux
-        Res_Celda.Offset(0, 1).Value = State_Celda.Value
-        Res_Celda.Offset(0, 2).Value = Lat_Celda.Value
-        Res_Celda.Offset(0, 3).Value = Lon_Celda.Value
-        Res_Celda.Offset(0, 4).Value = Owner_Celda.Value
-        Res_Celda.Offset(0, 5).Value = Slope_Celda.Value
-        Res_Celda.Offset(0, 7).Value = Softwood_Pulp
+        Res_Celda.Offset(0, 1).Value = State
+        Res_Celda.Offset(0, 2).Value = Lat
+        Res_Celda.Offset(0, 3).Value = Lon
+        Res_Celda.Offset(0, 4).Value = Owner
+        Res_Celda.Offset(0, 5).Value = Slope
         
         Set Res_Celda = Res_Celda.Offset(1, 0)
 
 Wend
 
 End Sub
-
-
-
