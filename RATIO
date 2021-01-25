@@ -1,0 +1,62 @@
+Sub Suma()
+Dim Year_Aux As Double, Cod_Aux As Double, Cod_Celda As Range, Year_Celda As Range, Type_Celda As Range
+Dim Round_Swd As Double, Log_Res_Swd As Double, Not_Used_Swd As Double
+Dim Round_Hwd As Double, Log_Res_Hwd As Double, Not_Used_Hwd As Double
+Dim Softwood_Celda As Range, Hardwood_Celda As Range
+
+
+Set Cod_Celda = Range("A2")         'Cod cell
+Set Year_Celda = Range("B2")         'Year cell
+Set Type_Celda = Range("D2")
+Set Softwood_Celda = Range("F2")
+Set Hardwood_Celda = Range("G2")
+Set Res_Celda = Range("J2")
+
+
+While (Cod_Celda.Value <> "")
+    Round_Swd = 0
+    Log_Res_Swd = 0
+    Not_Used_Swd = 0
+    Round_Hwd = 0
+    Log_Res_Hwd = 0
+    Not_Used_Hwd = 0
+    Year_Aux = Year_Celda.Value
+    Cod_Aux = Cod_Celda.Value
+    
+    While (Year_Celda.Value = Year_Aux)
+        
+        If (Type_Celda.Value = "Roundwood product") Then
+            Round_Swd = Round_Swd + Softwood_Celda.Value
+            Round_Hwd = Round_Hwd + Hardwood_Celda.Value
+        
+        ElseIf (Type_Celda.Value = "Logging residues") Then
+            Log_Res_Swd = Log_Res_Swd + Softwood_Celda.Value
+            Log_Res_Hwd = Log_Res_Hwd + Hardwood_Celda.Value
+        
+        ElseIf (Type_Celda.Value = "Other removals") Then
+            Not_Used_Swd = Not_Used_Swd + Softwood_Celda.Value
+            Not_Used_Hwd = Not_Used_Hwd + Hardwood_Celda.Value
+            
+        End If
+        Set Cod_Celda = Cod_Celda.Offset(1, 0)
+        Set Year_Celda = Year_Celda.Offset(1, 0)
+        Set Type_Celda = Type_Celda.Offset(1, 0)
+        Set Softwood_Celda = Softwood_Celda.Offset(1, 0)
+        Set Hardwood_Celda = Hardwood_Celda.Offset(1, 0)
+    
+    Wend
+        
+    Res_Celda.Value = Cod_Aux
+    Res_Celda.Offset(0, 1).Value = Year_Aux
+    Res_Celda.Offset(0, 2).Value = Round_Swd
+    Res_Celda.Offset(0, 3).Value = Log_Res_Swd
+    Res_Celda.Offset(0, 4).Value = Not_Used_Swd
+    Res_Celda.Offset(0, 7).Value = Round_Hwd
+    Res_Celda.Offset(0, 8).Value = Log_Res_Hwd
+    Res_Celda.Offset(0, 9).Value = Not_Used_Hwd
+    Set Res_Celda = Res_Celda.Offset(1, 0)
+    
+
+Wend
+
+End Sub
